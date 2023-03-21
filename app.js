@@ -9,8 +9,9 @@ const methodOverride = require("method-override");
 const ExpressError = require("./utils/ExpressError");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const campgrounds = require("./routes/campgrounds");
-const reviews = require("./routes/reviews");
+const campgroundsRoutes = require("./routes/campgrounds");
+const reviewsRoutes = require("./routes/reviews");
+const usersRoutes = require("./routes/users");
 const User = require("./models/user");
 mongoose.set("strictQuery", false);
 mongoose.connect("mongodb://127.0.0.1:27017/yelp-camp", {
@@ -51,6 +52,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   next();
@@ -68,8 +70,9 @@ app.get("/fakeUser", async (req, res) => {
 app.get("/", (req, res) => {
   res.render("campgrounds/home");
 });
-app.use("/campgrounds", campgrounds);
-app.use("/campgrounds/:id/reviews", reviews);
+app.use("/campgrounds", campgroundsRoutes);
+app.use("/campgrounds/:id/reviews", reviewsRoutes);
+app.use("/", usersRoutes);
 
 app.all("*", (req, res, next) => {
   next(new ExpressError("Page Not Found", 404));
