@@ -16,6 +16,8 @@ const campgroundsRoutes = require("./routes/campgrounds");
 const reviewsRoutes = require("./routes/reviews");
 const usersRoutes = require("./routes/users");
 const User = require("./models/user");
+const mongoSanitize = require("express-mongo-sanitize");
+const helmet = require("helmet");
 mongoose.set("strictQuery", false);
 mongoose.connect("mongodb://127.0.0.1:27017/yelp-camp", {
   useNewUrlParser: true,
@@ -34,12 +36,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 app.engine("ejs", ejsMate);
+app.use(mongoSanitize());
+// app.use(helmet({ contentSecurityPolicy: false }));
 const sessionConfig = {
+  name: "session",
   secret: "thisshouldbeabettersecret!",
   resave: false,
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
+    // secure: true,
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
     maxAge: 1000 * 60 * 60 * 24 * 7,
   },
