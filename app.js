@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 const express = require("express");
 const app = express();
 const port = 3000;
@@ -68,7 +71,7 @@ app.get("/fakeUser", async (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.render("campgrounds/home");
+  res.render("home");
 });
 app.use("/campgrounds", campgroundsRoutes);
 app.use("/campgrounds/:id/reviews", reviewsRoutes);
