@@ -37,7 +37,7 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 app.engine("ejs", ejsMate);
 app.use(mongoSanitize());
-// app.use(helmet({ contentSecurityPolicy: false }));
+app.use(helmet({ contentSecurityPolicy: false }));
 const sessionConfig = {
   name: "session",
   secret: "thisshouldbeabettersecret!",
