@@ -13,6 +13,8 @@
     "@mapbox/mapbox-sdk": "^0.15.0",
     "cloudinary": "^1.35.0",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^3.2.0",
+    "connect-mongodb-session": "^3.1.1",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "ejs-mate": "^4.0.0",
