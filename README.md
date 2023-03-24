@@ -23,6 +23,6 @@
 - User authentication system with Passport.js 🔒
 - CRUD functionality for campground and review management 📝
 - Image upload with Cloudinary 🌄
-- Google Maps integration with Mapbox 🗺️
+- Maps integration with Mapbox 🗺️
 - Data validation with Joi 💯
 - Improved security with Helmet 🛡️
